@@ -4,7 +4,7 @@
  * @author: Ray  (raymm.shen@qq.com)
  * @date: 2024-06-18 14:01:49
  * @lasteditor: Ray  (raymm.shen@qq.com)
- * @lastedittime: 2024-06-19 14:16:44
+ * @lastedittime: 2024-06-19 17:20:15
  * @copyright: Copyright © 2024 by raymm.shen@qq.com, All Rights Reserved.
  */
 
@@ -26,7 +26,7 @@ AudioPlayer::AudioPlayer()
     m_desiredSpec.freq = SAMPLE_RATE;
     m_desiredSpec.format = AUDIO_S16SYS;    // 16-bit signed audio
     m_desiredSpec.channels = NUM_CHANNELS;
-    m_desiredSpec.samples = SAMPLE_SIZE;
+    m_desiredSpec.samples = BUFFER_SIZE;
 }
 
 AudioPlayer::~AudioPlayer()
@@ -79,7 +79,7 @@ void AudioPlayer::stopPlayer()
     // stop recording and playback
     SDL_PauseAudioDevice(m_recordDeviceId, 1);
     SDL_PauseAudioDevice(m_playDeviceId, 1);
-
+    SDL_Delay(10);
     if(m_recordDeviceId)
     {
         SDL_CloseAudioDevice(m_recordDeviceId);
@@ -88,6 +88,8 @@ void AudioPlayer::stopPlayer()
     {
         SDL_CloseAudioDevice(m_playDeviceId);
     }
+
+    SDL_Delay(100);
 
     SDL_Quit();
 

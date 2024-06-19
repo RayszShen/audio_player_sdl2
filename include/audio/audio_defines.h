@@ -4,7 +4,7 @@
  * @author: Ray  (raymm.shen@qq.com)
  * @date: 2024-06-18 14:13:02
  * @lasteditor: Ray  (raymm.shen@qq.com)
- * @lastedittime: 2024-06-19 13:50:34
+ * @lastedittime: 2024-06-19 17:19:42
  * @copyright: Copyright © 2024 by raymm.shen@qq.com, All Rights Reserved.
  */
 
@@ -20,7 +20,6 @@ namespace audio_ns
 
 #define SAMPLE_RATE 44100
 #define NUM_CHANNELS 1
-#define SAMPLE_SIZE 2048
 #define BUFFER_SIZE 4096
 
 typedef struct AudioDataBuffer
@@ -30,7 +29,7 @@ typedef struct AudioDataBuffer
     size_t readPos;
 
     AudioDataBuffer()
-        : audioBuffer(BUFFER_SIZE * 2)
+        : audioBuffer(BUFFER_SIZE * 4, 0)
         , writePos(0)
         , readPos(0)
     {

@@ -4,7 +4,7 @@
  * @author: Ray  (raymm.shen@qq.com)
  * @date: 2024-06-19 13:34:56
  * @lasteditor: Ray  (raymm.shen@qq.com)
- * @lastedittime: 2024-06-19 13:47:41
+ * @lastedittime: 2024-06-19 17:05:36
  * @copyright: Copyright © 2024 by raymm.shen@qq.com, All Rights Reserved.
  */
 
@@ -72,6 +72,6 @@ void signalHandle(int sigNum)
    }
    else
    {
-
+      audio_run = false;
    }
 }
