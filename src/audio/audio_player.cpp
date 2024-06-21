@@ -4,7 +4,7 @@
  * @author: Ray  (raymm.shen@qq.com)
  * @date: 2024-06-18 14:01:49
  * @lasteditor: Ray  (raymm.shen@qq.com)
- * @lastedittime: 2024-06-19 17:20:15
+ * @lastedittime: 2024-06-21 11:19:14
  * @copyright: Copyright © 2024 by raymm.shen@qq.com, All Rights Reserved.
  */
 
@@ -53,8 +53,9 @@ bool AudioPlayer::startPlayer()
     if(startRecordDevice() && startPlayDevice()) 
     {
         // start recording and palyback
-        SDL_PauseAudioDevice(m_recordDeviceId, 0);
         SDL_PauseAudioDevice(m_playDeviceId, 0);
+        SDL_PauseAudioDevice(m_recordDeviceId, 0);
+
         std::cout << "audio player start successfully!" << std::endl;
         std::cout << "working ..." << std::endl;
 
@@ -69,6 +70,8 @@ bool AudioPlayer::startPlayer()
         SDL_CloseAudioDevice(m_playDeviceId);
     }
 
+    SDL_Quit();
+
     std::cout << "audio player start failed!" << std::endl;
 
     return false;
@@ -77,9 +80,9 @@ bool AudioPlayer::startPlayer()
 void AudioPlayer::stopPlayer()
 {
     // stop recording and playback
-    SDL_PauseAudioDevice(m_recordDeviceId, 1);
     SDL_PauseAudioDevice(m_playDeviceId, 1);
-    SDL_Delay(10);
+    SDL_PauseAudioDevice(m_recordDeviceId, 1);
+
     if(m_recordDeviceId)
     {
         SDL_CloseAudioDevice(m_recordDeviceId);
@@ -88,8 +91,6 @@ void AudioPlayer::stopPlayer()
     {
         SDL_CloseAudioDevice(m_playDeviceId);
     }
-
-    SDL_Delay(100);
 
     SDL_Quit();
 
@@ -110,7 +111,6 @@ bool AudioPlayer::startRecordDevice()
     if(m_recordDeviceId == 0)
     {
         std::cerr << "SDL_OpenAudioDevice (recording) failed: " << SDL_GetError() << std::endl;
-        SDL_Quit();
 
         return false;
     }
@@ -127,7 +127,6 @@ bool AudioPlayer::startPlayDevice()
     if(m_playDeviceId == 0)
     {
         std::cerr << "SDL_OpenAudioDevice (playback) failed: " << SDL_GetError() << std::endl;
-        SDL_Quit();
 
         return false;
     }
